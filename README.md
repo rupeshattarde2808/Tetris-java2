@@ -83,7 +83,11 @@ No external libraries or frameworks are required.
 | R              | Restart Game     |
 
 ---
+## 📸 Screenshots
 
+![Tetris Gameplay](screenshots/gameplay.png)
+
+---
 ## ⚙️ Installation & Setup
 
 ### Prerequisites
