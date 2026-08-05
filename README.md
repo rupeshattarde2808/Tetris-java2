@@ -85,7 +85,7 @@ No external libraries or frameworks are required.
 ---
 ## 📸 Screenshots
 
-![Tetris Gameplay](screenshots/gameplay.png)
+![Tetris Gameplay](gameplay.png)
 
 ---
 ## ⚙️ Installation & Setup
