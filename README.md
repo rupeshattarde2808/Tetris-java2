@@ -4,8 +4,6 @@
   <img src="assets/Tetris-java2.jpg" alt="Tetris Logo" width="200">
 </p>
 
-<h1 align="center">Tetris Java</h1>
-
 <p align="center">
   <img src="https://img.shields.io/badge/Java-17-orange?style=for-the-badge&logo=openjdk" />
   <img src="https://img.shields.io/badge/GUI-Java%20Swing-blue?style=for-the-badge" />
