@@ -1,7 +1,7 @@
 # 🎮 Tetris Java
 
 <p align="center">
-  <img src="assets/Tetris-logo.jpg" alt="Tetris Logo" width="200">
+  <img src="assets/Tetris-java2.jpg" alt="Tetris Logo" width="200">
 </p>
 
 <h1 align="center">Tetris Java</h1>
