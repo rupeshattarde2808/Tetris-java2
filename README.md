@@ -16,7 +16,7 @@
 
 ---
 
-## 📌 Overview
+## Overview
 
 **Tetris Java** is a desktop-based implementation of the classic Tetris game built completely using **Java Swing**.
 
@@ -35,7 +35,7 @@ No external libraries or frameworks are required.
 
 ## ✨ Features
 
-### 🎮 Gameplay
+###  Gameplay
 
 * Classic Tetris mechanics
 * Seven Tetromino shapes
@@ -46,7 +46,7 @@ No external libraries or frameworks are required.
 * Hard drop
 * Line clearing
 
-### 🧠 Game Logic
+###  Game Logic
 
 * Collision detection system
 * Piece locking mechanism
@@ -54,7 +54,7 @@ No external libraries or frameworks are required.
 * Score calculation
 * Restart functionality
 
-### 🖥️ User Experience
+###  User Experience
 
 * Java Swing graphical interface
 * Pause and resume support
@@ -63,7 +63,7 @@ No external libraries or frameworks are required.
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Technology | Usage             |
 | ---------- | ----------------- |
@@ -74,7 +74,7 @@ No external libraries or frameworks are required.
 
 ---
 
-## 🎮 Controls
+##  Controls
 
 | Key            | Function         |
 | -------------- | ---------------- |
@@ -87,7 +87,7 @@ No external libraries or frameworks are required.
 | R              | Restart Game     |
 
 ---
-## 📸 Screenshots
+##  Screenshots
 
 <img src="assets/gameplay.png" alt="Gameplay" width="400">
 ---
@@ -122,7 +122,7 @@ cd Tetris-java2
 
 ---
 
-## ▶️ Run The Game
+##  Run The Game
 
 Move into the source directory:
 
@@ -144,7 +144,7 @@ java Tetris
 
 ---
 
-## 🚧 Future Enhancements
+##  Future Enhancements
 
 * [ ] Next piece preview
 * [ ] Multiple difficulty levels
@@ -156,7 +156,7 @@ java Tetris
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome!
 
@@ -185,13 +185,13 @@ git push origin feature-name
 
 ---
 
-## 📄 License
+##  License
 
 This project is licensed under the MIT License.
 
 ---
 
-## 👨‍💻 Author
+##  Author
 
 **Rupesh Attarde**
 
