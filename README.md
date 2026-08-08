@@ -33,7 +33,7 @@ No external libraries or frameworks are required.
 
 ---
 
-## ✨ Features
+##  Features
 
 ###  Gameplay
 
