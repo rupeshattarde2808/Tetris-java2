@@ -90,12 +90,14 @@ No external libraries or frameworks are required.
 ##  Screenshots
 
 <img src="assets/gameplay.png" alt="Gameplay" width="400">
----
+
 ---
 ## Gameplay Video
 
 ![Tetris Gameplay](assets/tetris-gameplay.gif)
---
+
+---
+
 ### Prerequisites
 
 Install Java JDK:
