@@ -94,8 +94,7 @@ No external libraries or frameworks are required.
 ---
 ## Gameplay Video
 
-![Tetris Gameplay](assets/tetris-gameplay.gif)
-
+<img src="assets/tetris-gameplay.gif" width="500">
 ---
 
 ### Prerequisites
