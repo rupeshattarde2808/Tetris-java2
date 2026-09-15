@@ -87,14 +87,10 @@ No external libraries or frameworks are required.
 | R              | Restart Game     |
 
 ---
-##  Screenshots
-
-<img src="assets/gameplay.png" alt="Gameplay" width="400">
-
----
 ## Gameplay Video
 
 <img src="assets/tetris-gameplay.gif" width="500">
+
 ---
 
 ### Prerequisites
