@@ -1,7 +1,7 @@
 
 
 <p align="center">
-  <img src="assets/Tetris-java2.jpg" alt="Tetris Logo" width="200">
+  <img src="assets/Tetris-java2.jpg" alt="Tetris Logo" width="300">
 </p>
 
 <p align="center">
