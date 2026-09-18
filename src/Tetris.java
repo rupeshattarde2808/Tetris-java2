@@ -21,7 +21,28 @@ public class Tetris extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
-        Board board = new Board();
+        String[] options = {"Easy", "Normal", "Hard"};
+
+    int choice = JOptionPane.showOptionDialog(
+            this,
+            "Select Difficulty Level:",
+            "Tetris Difficulty",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            options,
+            options[1]
+    );
+
+    Board board;
+
+    if (choice == 0) {
+        board = new Board("Easy");
+    } else if (choice == 2) {
+        board = new Board("Hard");
+    } else {
+        board = new Board("Medium");
+    }
         add(board);
         pack();
         setLocationRelativeTo(null);
@@ -76,12 +97,25 @@ class Board extends JPanel implements KeyListener {
     private int score = 0;
     private int lines = 0;
     private int level = 1;
+    private String difficulty;
+    private int startingDelay;
+
 
     private Random rand = new Random();
 
-    public Board() {
+    public Board(String difficulty) {
         setPreferredSize(new Dimension(COLS * TILE + SIDEBAR, ROWS * TILE));
         setBackground(Color.BLACK);
+
+        this.difficulty=difficulty;
+
+        if(difficulty.equals("Easy")){
+            startingDelay=500;
+        }else if(difficulty.equals("Hard")){
+            startingDelay=150;
+        }else{
+            startingDelay=300;
+        }
         initGame();
     }
 
@@ -93,7 +127,7 @@ class Board extends JPanel implements KeyListener {
         score = 0;
         lines = 0;
         level = 1;
-        delay = 500;
+        delay = startingDelay;
         gameOver = false;
         paused = false;
 
@@ -210,7 +244,7 @@ class Board extends JPanel implements KeyListener {
             int newLevel = lines / 10 + 1;
             if (newLevel != level) {
                 level = newLevel;
-                delay = Math.max(100, 500 - (level - 1) * 40);
+                delay = Math.max(100, startingDelay - (level - 1) * 40);
                 timer.setDelay(delay);
             }
         }
