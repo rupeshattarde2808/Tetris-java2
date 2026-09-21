@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import java.util.Random;
 import javax.swing.*;
 
@@ -95,10 +96,12 @@ class Board extends JPanel implements KeyListener {
     private boolean gameOver = false;
     private boolean paused = false;
     private int score = 0;
+    private int highScore = 0;
     private int lines = 0;
     private int level = 1;
     private String difficulty;
     private int startingDelay;
+    private final String HIGH_SCORE_FILE = "highscore.txt";
 
 
     private Random rand = new Random();
@@ -125,6 +128,7 @@ class Board extends JPanel implements KeyListener {
                 grid[r][c] = null;
 
         score = 0;
+        highScore = loadHighScore();
         lines = 0;
         level = 1;
         delay = startingDelay;
@@ -138,6 +142,40 @@ class Board extends JPanel implements KeyListener {
         timer = new Timer(delay, e -> gameLoop());
         timer.start();
     }
+
+    private int loadHighScore() {
+    try {
+        File file = new File(HIGH_SCORE_FILE);
+
+        if (!file.exists()) {
+            return 0;
+        }
+
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        String line = reader.readLine();
+        reader.close();
+
+        if (line != null) {
+            return Integer.parseInt(line);
+        }
+
+    } catch (Exception e) {
+        System.out.println("Could not load high score.");
+    }
+
+    return 0;
+}
+    private void saveHighScore() {
+    try {
+        FileWriter writer = new FileWriter(HIGH_SCORE_FILE);
+        writer.write(String.valueOf(highScore));
+        writer.close();
+
+    } catch (IOException e) {
+        System.out.println("Could not save high score.");
+    }
+}
+
 
     private void gameLoop() {
         if (!paused && !gameOver) {
@@ -241,6 +279,11 @@ class Board extends JPanel implements KeyListener {
                 case 3: score += 500 * level; break;
                 case 4: score += 800 * level; break;
             }
+
+            if(score > highScore){
+                highScore = score;
+                saveHighScore();
+            }
             int newLevel = lines / 10 + 1;
             if (newLevel != level) {
                 level = newLevel;
@@ -307,36 +350,46 @@ class Board extends JPanel implements KeyListener {
             }
         }
 
-        // Sidebar
-        int sx = COLS * TILE + 15;
-        g2.setColor(Color.WHITE);
-        g2.setFont(new Font("Arial", Font.BOLD, 16));
-        g2.drawString("SCORE", sx, 30);
-        g2.drawString(String.valueOf(score), sx, 50);
+// Sidebar
+int sx = COLS * TILE + 15;
+g2.setColor(Color.WHITE);
+g2.setFont(new Font("Arial", Font.BOLD, 16));
 
-        g2.drawString("LINES", sx, 90);
-        g2.drawString(String.valueOf(lines), sx, 110);
+g2.drawString("SCORE", sx, 30);
+g2.drawString(String.valueOf(score), sx, 50);
 
-        g2.drawString("LEVEL", sx, 150);
-        g2.drawString(String.valueOf(level), sx, 170);
+g2.drawString("HIGH SCORE", sx, 85);
+g2.drawString(String.valueOf(highScore), sx, 105);
 
-        g2.drawString("NEXT", sx, 210);
-        if (nextShape != null) {
-            for (int[] cell : nextShape) {
-                int px = sx + cell[0] * (TILE - 5);
-                int py = 220 + cell[1] * (TILE - 5);
-                g2.setColor(nextColor);
-                g2.fillRect(px, py, TILE - 6, TILE - 6);
-                g2.setColor(Color.BLACK);
-                g2.drawRect(px, py, TILE - 6, TILE - 6);
-            }
-        }
+g2.drawString("LINES", sx, 140);
+g2.drawString(String.valueOf(lines), sx, 160);
+
+g2.drawString("LEVEL", sx, 195);
+g2.drawString(String.valueOf(level), sx, 215);
+
+g2.drawString("DIFFICULTY", sx, 250);
+g2.drawString(difficulty, sx, 270);
+
+g2.drawString("NEXT", sx, 310);
+
+if (nextShape != null) {
+    for (int[] cell : nextShape) {
+        int px = sx + cell[0] * (TILE - 5);
+        int py = 320 + cell[1] * (TILE - 5);
+
+        g2.setColor(nextColor);
+        g2.fillRect(px, py, TILE - 6, TILE - 6);
+
+        g2.setColor(Color.BLACK);
+        g2.drawRect(px, py, TILE - 6, TILE - 6);
+    }
+}
 
         g2.setFont(new Font("Arial", Font.PLAIN, 11));
-        g2.drawString("Arrows: move/rotate", sx, 320);
-        g2.drawString("Space: hard drop", sx, 335);
-        g2.drawString("P: pause", sx, 350);
-        g2.drawString("R: restart", sx, 365);
+        g2.drawString("Arrows: move/rotate", sx, 450);
+        g2.drawString("Space: hard drop", sx, 470);
+        g2.drawString("P: pause", sx, 490);
+        g2.drawString("R: restart", sx, 510);
 
         if (paused && !gameOver) {
             g2.setColor(new Color(0, 0, 0, 180));
