@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.Random;
+import javax.sound.sampled.*;
 import javax.swing.*;
 
 /**
@@ -202,6 +203,7 @@ class Board extends JPanel implements KeyListener {
         if (collides(currentShape, curX, curY)) {
             gameOver = true;
             timer.stop();
+            playGameOverSound();
         }
     }
 
@@ -229,6 +231,7 @@ class Board extends JPanel implements KeyListener {
             curY++;
         } else {
             lockPiece();
+            playLockSound();            
             clearLines();
             spawnPiece();
         }
@@ -240,6 +243,7 @@ class Board extends JPanel implements KeyListener {
             score += 1;
         }
         lockPiece();
+        playHardDropSound();
         clearLines();
         spawnPiece();
         repaint();
@@ -272,6 +276,11 @@ class Board extends JPanel implements KeyListener {
             }
         }
         if (cleared > 0) {
+            if (cleared == 4) {
+               playTetrisSound();
+               } else {
+                playLineClearSound();
+                }
             lines += cleared;
             switch (cleared) {
                 case 1: score += 100 * level; break;
@@ -421,6 +430,92 @@ if (nextShape != null) {
         g2.setColor(new Color(255, 255, 255, 60));
         g2.drawLine(px + 1, py + 1, px + TILE - 2, py + 1);
     }
+    private void playSound(int frequency, int duration) {
+    new Thread(() -> {
+        try {
+            float sampleRate = 44100;
+
+            AudioFormat format = new AudioFormat(
+                    sampleRate,
+                    8,
+                    1,
+                    true,
+                    false
+            );
+
+            SourceDataLine line =
+                    AudioSystem.getSourceDataLine(format);
+
+            line.open(format);
+            line.start();
+
+            byte[] buffer = new byte[1];
+
+            int samples =
+                    (int) (duration * sampleRate / 1000);
+
+            for (int i = 0; i < samples; i++) {
+
+                double angle =
+                        2.0 * Math.PI * frequency * i / sampleRate;
+
+                buffer[0] =
+                        (byte) (Math.sin(angle) * 100);
+
+                line.write(buffer, 0, 1);
+            }
+
+            line.drain();
+            line.stop();
+            line.close();
+
+        } catch (Exception e) {
+            System.out.println("Could not play sound.");
+        }
+    }).start();
+}
+
+    private void playLockSound() {
+    playSound(250, 70);
+}
+
+private void playHardDropSound() {
+    new Thread(() -> {
+        playSound(500, 50);
+        playSound(350, 50);
+        playSound(200, 100);
+    }).start();
+}
+
+private void playLineClearSound() {
+    new Thread(() -> {
+        playSound(500, 80);
+        playSound(700, 80);
+        playSound(900, 120);
+    }).start();
+}
+
+private void playTetrisSound() {
+    new Thread(() -> {
+        playSound(500, 100);
+        playSound(650, 100);
+        playSound(800, 100);
+        playSound(1000, 180);
+    }).start();
+}
+
+private void playGameOverSound() {
+    new Thread(() -> {
+        playSound(800, 150);
+        playSound(600, 150);
+        playSound(400, 200);
+        playSound(200, 500);
+    }).start();
+}
+
+private void playRotateSound() {
+    playSound(700, 50);
+}   
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -443,7 +538,10 @@ if (nextShape != null) {
                 if (!paused) moveDown();
                 break;
             case KeyEvent.VK_UP:
-                if (!paused) rotate();
+                if (!paused) {
+        rotate();
+        playRotateSound();
+    }
                 break;
             case KeyEvent.VK_SPACE:
                 if (!paused) hardDrop();
