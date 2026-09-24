@@ -103,8 +103,7 @@ class Board extends JPanel implements KeyListener {
     private String difficulty;
     private int startingDelay;
     private final String HIGH_SCORE_FILE = "highscore.txt";
-
-
+    private Clip backgroundMusic;
     private Random rand = new Random();
 
     public Board(String difficulty) {
@@ -142,6 +141,7 @@ class Board extends JPanel implements KeyListener {
         if (timer != null) timer.stop();
         timer = new Timer(delay, e -> gameLoop());
         timer.start();
+        playBackgroundMusic();
     }
 
     private int loadHighScore() {
@@ -203,6 +203,7 @@ class Board extends JPanel implements KeyListener {
         if (collides(currentShape, curX, curY)) {
             gameOver = true;
             timer.stop();
+            stopBackgroundMusic();
             playGameOverSound();
         }
     }
@@ -515,7 +516,32 @@ private void playGameOverSound() {
 
 private void playRotateSound() {
     playSound(700, 50);
-}   
+}
+
+private void playBackgroundMusic() {
+    try {
+        File musicFile = new File("../sound/background.wav");
+
+        AudioInputStream audioStream =
+                AudioSystem.getAudioInputStream(musicFile);
+
+        backgroundMusic = AudioSystem.getClip();
+        backgroundMusic.open(audioStream);
+
+        backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
+        backgroundMusic.start();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+private void stopBackgroundMusic() {
+    if (backgroundMusic != null && backgroundMusic.isRunning()) {
+        backgroundMusic.stop();
+        backgroundMusic.close();
+    }
+}
 
     @Override
     public void keyPressed(KeyEvent e) {
