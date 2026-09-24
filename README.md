@@ -146,11 +146,11 @@ java Tetris
 
 ##  Future Enhancements
 
-* [ ] Next piece preview
-* [ ] Multiple difficulty levels
-* [ ] Sound effects
-* [ ] Background music
-* [ ] High score saving
+* [x] Next piece preview
+* [x] Multiple difficulty levels
+* [x] Sound effects
+* [x] Background music
+* [x] High score saving
 * [ ] Improved animations
 * [ ] Multiplayer mode
 
