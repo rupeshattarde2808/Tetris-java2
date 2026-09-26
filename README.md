@@ -86,7 +86,7 @@ collision detection, and keyboard controls.
 ---
 ## Gameplay Video
 
-<img src="assets/tetris.mp4" controls width="350">
+<img src="assets/tetris.gif" controls width="350">
 
 ---
 
