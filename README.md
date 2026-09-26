@@ -45,6 +45,12 @@ No external libraries or frameworks are required.
 * Soft drop
 * Hard drop
 * Line clearing
+* Score tracking
+* High score saving
+* Multiple difficulty level
+* Sound effect
+* Background music
+* Restart game
 
 ###  Game Logic
 
