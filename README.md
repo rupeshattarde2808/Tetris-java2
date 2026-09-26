@@ -61,13 +61,16 @@ collision detection, and keyboard controls.
 
 ##  Tech Stack
 
-| Technology | Usage             |
-| ---------- | ----------------- |
-| Java       | Core development  |
-| Java Swing | User Interface    |
-| Java AWT   | Graphics & Events |
-| Git/GitHub | Version Control   |
+## 🛠️ Tech Stack
 
+| Technology | Usage |
+| ---------- | ----- |
+| Java 26 | Core development & game logic |
+| Java Swing | Graphical User Interface |
+| Java AWT | Graphics, keyboard events & rendering |
+| Java Sound API | Sound effects & background music |
+| File I/O | Persistent high-score storage |
+| Git/GitHub | Version control & project management |
 ---
 
 ##  Controls
@@ -99,8 +102,8 @@ java -version
 
 Recommended:
 
-* JDK 17+
-* JDK 21+
+- JDK 26
+- Git
 
 ---
 
