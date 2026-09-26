@@ -61,8 +61,6 @@ collision detection, and keyboard controls.
 
 ##  Tech Stack
 
-## 🛠️ Tech Stack
-
 | Technology | Usage |
 | ---------- | ----- |
 | Java 26 | Core development & game logic |
