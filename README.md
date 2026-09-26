@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Java-17-orange?style=for-the-badge&logo=openjdk" />
+  <img src="https://img.shields.io/badge/Java-26-orange?style=for-the-badge&logo=openjdk" />
   <img src="https://img.shields.io/badge/GUI-Java%20Swing-blue?style=for-the-badge" />
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" />
 </p>
@@ -18,18 +18,9 @@
 
 ## Overview
 
-**Tetris Java** is a desktop-based implementation of the classic Tetris game built completely using **Java Swing**.
-
-The project focuses on implementing game development concepts such as:
-
-* Game loops
-* Object-oriented programming
-* Keyboard event handling
-* Collision detection
-* Grid-based movement
-* Real-time rendering
-
-No external libraries or frameworks are required.
+A desktop-based **Tetris game** built with Java Swing, featuring multiple difficulty levels,
+next-piece preview, persistent high scores, sound effects, background music,
+collision detection, and keyboard controls.
 
 ---
 
@@ -50,7 +41,6 @@ No external libraries or frameworks are required.
 * Multiple difficulty level
 * Sound effect
 * Background music
-* Restart game
 
 ###  Game Logic
 
