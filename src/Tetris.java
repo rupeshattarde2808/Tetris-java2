@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Random;
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -106,6 +107,12 @@ class Board extends JPanel implements KeyListener {
     private Clip backgroundMusic;
     private Random rand = new Random();
 
+    private boolean lineClearing = false;
+    private boolean flashOn = false;
+    private int flashCount = 0;
+    private ArrayList<Integer> clearingRows = new ArrayList<>();
+    private Timer lineClearTimer;
+
     public Board(String difficulty) {
         setPreferredSize(new Dimension(COLS * TILE + SIDEBAR, ROWS * TILE));
         setBackground(Color.BLACK);
@@ -179,7 +186,7 @@ class Board extends JPanel implements KeyListener {
 
 
     private void gameLoop() {
-        if (!paused && !gameOver) {
+        if (!paused && !gameOver && !lineClearing) { 
             moveDown();
         }
         repaint();
@@ -233,8 +240,9 @@ class Board extends JPanel implements KeyListener {
         } else {
             lockPiece();
             playLockSound();            
-            clearLines();
+            if (!startLineClearAnimation()) {
             spawnPiece();
+        }
         }
     }
 
@@ -245,8 +253,10 @@ class Board extends JPanel implements KeyListener {
         }
         lockPiece();
         playHardDropSound();
-        clearLines();
+        
+        if (!startLineClearAnimation()) {
         spawnPiece();
+    }
         repaint();
     }
 
@@ -260,48 +270,116 @@ class Board extends JPanel implements KeyListener {
         }
     }
 
-    private void clearLines() {
-        int cleared = 0;
-        for (int r = ROWS - 1; r >= 0; r--) {
-            boolean full = true;
-            for (int c = 0; c < COLS; c++) {
-                if (grid[r][c] == null) { full = false; break; }
-            }
-            if (full) {
-                cleared++;
-                for (int rr = r; rr > 0; rr--) {
-                    grid[rr] = grid[rr - 1].clone();
-                }
-                grid[0] = new Color[COLS];
-                r++; // re-check same row index after shift
+    private boolean startLineClearAnimation() {
+    clearingRows.clear();
+
+    // Find completed rows
+    for (int r = 0; r < ROWS; r++) {
+        boolean full = true;
+
+        for (int c = 0; c < COLS; c++) {
+            if (grid[r][c] == null) {
+                full = false;
+                break;
             }
         }
-        if (cleared > 0) {
-            if (cleared == 4) {
-               playTetrisSound();
-               } else {
-                playLineClearSound();
-                }
-            lines += cleared;
-            switch (cleared) {
-                case 1: score += 100 * level; break;
-                case 2: score += 300 * level; break;
-                case 3: score += 500 * level; break;
-                case 4: score += 800 * level; break;
-            }
 
-            if(score > highScore){
-                highScore = score;
-                saveHighScore();
-            }
-            int newLevel = lines / 10 + 1;
-            if (newLevel != level) {
-                level = newLevel;
-                delay = Math.max(100, startingDelay - (level - 1) * 40);
-                timer.setDelay(delay);
-            }
+        if (full) {
+            clearingRows.add(r);
         }
     }
+
+    // No lines to clear
+    if (clearingRows.isEmpty()) {
+        return false;
+    }
+
+    lineClearing = true;
+    flashOn = true;
+    flashCount = 0;
+
+    lineClearTimer = new Timer(100, e -> updateLineClearAnimation());
+    lineClearTimer.start();
+
+    return true;
+}
+
+private void updateLineClearAnimation() {
+    flashOn = !flashOn;
+    flashCount++;
+
+    repaint();
+
+    if (flashCount >= 6) {
+        lineClearTimer.stop();
+
+        removeClearedLines();
+
+        lineClearing = false;
+        flashOn = false;
+        clearingRows.clear();
+
+        spawnPiece();
+        repaint();
+    }
+}
+
+private void removeClearedLines() {
+    int cleared = clearingRows.size();
+
+    // Remove completed rows
+    for (int row : clearingRows) {
+        for (int r = row; r > 0; r--) {
+            grid[r] = grid[r - 1].clone();
+        }
+
+        grid[0] = new Color[COLS];
+    }
+
+    // Play line-clear sound
+    if (cleared == 4) {
+        playTetrisSound();
+    } else {
+        playLineClearSound();
+    }
+
+    // Update lines and score
+    lines += cleared;
+
+    switch (cleared) {
+        case 1:
+            score += 100 * level;
+            break;
+        case 2:
+            score += 300 * level;
+            break;
+        case 3:
+            score += 500 * level;
+            break;
+        case 4:
+            score += 800 * level;
+            break;
+    }
+
+    // Update high score
+    if (score > highScore) {
+        highScore = score;
+        saveHighScore();
+    }
+
+    // Update level
+    int newLevel = lines / 10 + 1;
+
+    if (newLevel != level) {
+        level = newLevel;
+        delay = Math.max(
+            100,
+            startingDelay - (level - 1) * 40
+        );
+
+        timer.setDelay(delay);
+    }
+}
 
     private void rotate() {
         int[][] rotated = new int[currentShape.length][2];
@@ -345,13 +423,36 @@ class Board extends JPanel implements KeyListener {
         g2.drawRect(0, 0, COLS * TILE, ROWS * TILE);
 
         // Draw locked blocks
-        for (int r = 0; r < ROWS; r++) {
-            for (int c = 0; c < COLS; c++) {
-                if (grid[r][c] != null) {
-                    drawTile(g2, c, r, grid[r][c]);
-                }
+        // Draw locked blocks
+for (int r = 0; r < ROWS; r++) {
+    for (int c = 0; c < COLS; c++) {
+        if (grid[r][c] != null) {
+
+            boolean isClearingRow =
+                    lineClearing && clearingRows.contains(r);
+
+            if (isClearingRow && flashOn) {
+                g2.setColor(Color.WHITE);
+                g2.fillRect(
+                    c * TILE,
+                    r * TILE,
+                    TILE,
+                    TILE
+                );
+
+                g2.setColor(Color.YELLOW);
+                g2.drawRect(
+                    c * TILE,
+                    r * TILE,
+                    TILE - 1,
+                    TILE - 1
+                );
+            } else {
+                drawTile(g2, c, r, grid[r][c]);
             }
         }
+    }
+}
 
         // Draw current piece
         if (!gameOver && currentShape != null) {
@@ -541,7 +642,7 @@ private void stopBackgroundMusic() {
         backgroundMusic.stop();
         backgroundMusic.close();
     }
-}
+}   
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -552,6 +653,11 @@ private void stopBackgroundMusic() {
             repaint();
             return;
         }
+
+        if (lineClearing) {
+        return;
+    }
+
 
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
