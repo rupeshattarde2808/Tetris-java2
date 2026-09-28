@@ -19,7 +19,7 @@
 ## Overview
 
 A desktop-based **Tetris game** built with Java Swing, featuring multiple difficulty levels,
-next-piece preview, persistent high scores, sound effects, background music,
+next-piece preview, persistent high scores, sound effects, background music,Line clearing animation
 collision detection, and keyboard controls.
 
 ---
@@ -41,6 +41,7 @@ collision detection, and keyboard controls.
 * Multiple difficulty level
 * Sound effect
 * Background music
+* Add clearline animation
 
 ###  Game Logic
 
@@ -148,7 +149,7 @@ java Tetris
 * [x] Sound effects
 * [x] Background music
 * [x] High score saving
-* [ ] Improved animations
+* [x] Improved animations
 * [ ] Multiplayer mode
 
 ---
