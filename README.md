@@ -1,35 +1,26 @@
 
 
 <p align="center">
-  <img src="assets/Tetris-java2.jpg" alt="Tetris Logo" width="200">
+  <img src="assets/Tetris-java2.jpg" alt="Tetris Logo" width="300">
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Java-17-orange?style=for-the-badge&logo=openjdk" />
+  <img src="https://img.shields.io/badge/Java-26-orange?style=for-the-badge&logo=openjdk" />
   <img src="https://img.shields.io/badge/GUI-Java%20Swing-blue?style=for-the-badge" />
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" />
 </p>
 
 <p align="center">
-  A classic Tetris game developed using Java Swing with smooth gameplay, keyboard controls, collision detection, and scoring system.
+  A classic Tetris game developed using Java Swing with smooth gameplay, keyboard controls, collision detection, and scoring system,mutiple difficulty level,sound effect,and animation.
 </p>
 
 ---
 
 ## Overview
 
-**Tetris Java** is a desktop-based implementation of the classic Tetris game built completely using **Java Swing**.
-
-The project focuses on implementing game development concepts such as:
-
-* Game loops
-* Object-oriented programming
-* Keyboard event handling
-* Collision detection
-* Grid-based movement
-* Real-time rendering
-
-No external libraries or frameworks are required.
+A desktop-based **Tetris game** built with Java Swing, featuring multiple difficulty levels,
+next-piece preview, persistent high scores, sound effects, background music,Line clearing animation
+collision detection, and keyboard controls.
 
 ---
 
@@ -45,6 +36,12 @@ No external libraries or frameworks are required.
 * Soft drop
 * Hard drop
 * Line clearing
+* Score tracking
+* High score saving
+* Multiple difficulty level
+* Sound effect
+* Background music
+* Add clearline animation
 
 ###  Game Logic
 
@@ -65,13 +62,14 @@ No external libraries or frameworks are required.
 
 ##  Tech Stack
 
-| Technology | Usage             |
-| ---------- | ----------------- |
-| Java       | Core development  |
-| Java Swing | User Interface    |
-| Java AWT   | Graphics & Events |
-| Git/GitHub | Version Control   |
-
+| Technology | Usage |
+| ---------- | ----- |
+| Java 26 | Core development & game logic |
+| Java Swing | Graphical User Interface |
+| Java AWT | Graphics, keyboard events & rendering |
+| Java Sound API | Sound effects & background music |
+| File I/O | Persistent high-score storage |
+| Git/GitHub | Version control & project management |
 ---
 
 ##  Controls
@@ -85,11 +83,6 @@ No external libraries or frameworks are required.
 | Space          | Hard drop        |
 | P              | Pause / Resume   |
 | R              | Restart Game     |
-
----
-##  Screenshots
-
-<img src="assets/gameplay.png" alt="Gameplay" width="400">
 
 ---
 ## Gameplay Video
@@ -108,8 +101,8 @@ java -version
 
 Recommended:
 
-* JDK 17+
-* JDK 21+
+- JDK 26
+- Git
 
 ---
 
@@ -151,12 +144,12 @@ java Tetris
 
 ##  Future Enhancements
 
-* [ ] Next piece preview
-* [ ] Multiple difficulty levels
-* [ ] Sound effects
-* [ ] Background music
-* [ ] High score saving
-* [ ] Improved animations
+* [x] Next piece preview
+* [x] Multiple difficulty levels
+* [x] Sound effects
+* [x] Background music
+* [x] High score saving
+* [x] Improved animations
 * [ ] Multiplayer mode
 
 ---
