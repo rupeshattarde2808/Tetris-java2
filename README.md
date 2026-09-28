@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  A classic Tetris game developed using Java Swing with smooth gameplay, keyboard controls, collision detection, and scoring system.
+  A classic Tetris game developed using Java Swing with smooth gameplay, keyboard controls, collision detection, and scoring system,mutiple difficulty level,sound effect,and animation.
 </p>
 
 ---
