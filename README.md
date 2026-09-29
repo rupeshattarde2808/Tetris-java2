@@ -42,6 +42,7 @@ collision detection, and keyboard controls.
 * Sound effect
 * Background music
 * Add clearline animation
+* Add a pause feature
 
 ###  Game Logic
 
@@ -150,6 +151,7 @@ java Tetris
 * [x] Background music
 * [x] High score saving
 * [x] Improved animations
+* [x] pause the game
 * [ ] Multiplayer mode
 
 ---
