@@ -503,12 +503,24 @@ if (nextShape != null) {
         g2.drawString("R: restart", sx, 510);
 
         if (paused && !gameOver) {
-            g2.setColor(new Color(0, 0, 0, 180));
-            g2.fillRect(0, 0, COLS * TILE, ROWS * TILE);
-            g2.setColor(Color.WHITE);
-            g2.setFont(new Font("Arial", Font.BOLD, 24));
-            g2.drawString("PAUSED", COLS * TILE / 2 - 60, ROWS * TILE / 2);
-        }
+    g2.setColor(new Color(0, 0, 0, 180));
+    g2.fillRect(0, 0, COLS * TILE, ROWS * TILE);
+
+    g2.setColor(Color.WHITE);
+    g2.setFont(new Font("Arial", Font.BOLD, 36));
+    g2.drawString(
+        "PAUSED",
+        COLS * TILE / 2 - 75,
+        ROWS * TILE / 2 - 20
+    );
+
+    g2.setFont(new Font("Arial", Font.PLAIN, 18));
+    g2.drawString(
+        "Press P to Resume",
+        COLS * TILE / 2 - 75,
+        ROWS * TILE / 2 + 20
+    );
+}
 
         if (gameOver) {
             g2.setColor(new Color(0, 0, 0, 180));
