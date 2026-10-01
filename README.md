@@ -152,6 +152,7 @@ java Tetris
 * [x] High score saving
 * [x] Improved animations
 * [x] pause the game
+* [x] Theme selection
 * [ ] Multiplayer mode
 
 ---
