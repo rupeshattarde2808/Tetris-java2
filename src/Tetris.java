@@ -20,39 +20,80 @@ public class Tetris extends JFrame {
     }
 
     public Tetris() {
-        setTitle("Tetris");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
 
-        String[] options = {"Easy", "Normal", "Hard"};
+    // Select difficulty
+    String[] difficultyOptions = {"Easy", "Normal", "Hard"};
 
-    int choice = JOptionPane.showOptionDialog(
+    int difficultyChoice = JOptionPane.showOptionDialog(
             this,
             "Select Difficulty Level:",
             "Tetris Difficulty",
             JOptionPane.DEFAULT_OPTION,
             JOptionPane.QUESTION_MESSAGE,
             null,
-            options,
-            options[1]
+            difficultyOptions,
+            difficultyOptions[1]
     );
 
-    Board board;
+    // Select theme
+    String[] themeOptions = {"Dark", "Ocean", "Neon", "Light"};
 
-    if (choice == 0) {
-        board = new Board("Easy");
-    } else if (choice == 2) {
-        board = new Board("Hard");
+    int themeChoice = JOptionPane.showOptionDialog(
+            this,
+            "Select Theme:",
+            "Tetris Theme",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            themeOptions,
+            themeOptions[0]
+    );
+
+    // Convert difficulty choice
+    String difficulty;
+
+    if (difficultyChoice == 0) {
+        difficulty = "Easy";
+    } else if (difficultyChoice == 2) {
+        difficulty = "Hard";
     } else {
-        board = new Board("Medium");
+        difficulty = "Medium";
     }
-        add(board);
-        pack();
-        setLocationRelativeTo(null);
 
-        addKeyListener(board);
-        setFocusable(true);
+    // Convert theme choice
+    String theme;
+
+    if (themeChoice == 1) {
+        theme = "Ocean";
+    } else if (themeChoice == 2) {
+        theme = "Neon";
+    } else if (themeChoice == 3) {
+        theme = "Light";
+    } else {
+        theme = "Dark";
     }
+
+    // Create board
+    Board board = new Board(difficulty, theme);
+
+    add(board);
+
+    pack();
+
+    setTitle("Tetris");
+
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    setLocationRelativeTo(null);
+
+    setResizable(false);
+
+    board.setFocusable(true);
+    board.addKeyListener(board);
+    SwingUtilities.invokeLater(() -> {
+    board.requestFocusInWindow();
+});
+}
 }
 
 class Board extends JPanel implements KeyListener {
@@ -104,6 +145,12 @@ class Board extends JPanel implements KeyListener {
     private String difficulty;
     private int startingDelay;
     private final String HIGH_SCORE_FILE = "highscore.txt";
+    private String theme;
+
+private Color backgroundColor;
+private Color sidebarColor;
+private Color textColor;
+private Color borderColor;
     private Clip backgroundMusic;
     private Random rand = new Random();
 
@@ -113,11 +160,14 @@ class Board extends JPanel implements KeyListener {
     private ArrayList<Integer> clearingRows = new ArrayList<>();
     private Timer lineClearTimer;
 
-    public Board(String difficulty) {
+    public Board(String difficulty,String theme) {
         setPreferredSize(new Dimension(COLS * TILE + SIDEBAR, ROWS * TILE));
         setBackground(Color.BLACK);
 
         this.difficulty=difficulty;
+        this.theme = theme;
+
+        setTheme(theme);
 
         if(difficulty.equals("Easy")){
             startingDelay=500;
@@ -128,6 +178,42 @@ class Board extends JPanel implements KeyListener {
         }
         initGame();
     }
+    private void setTheme(String theme) {
+
+    switch (theme) {
+
+        case "Ocean":
+            backgroundColor = new Color(10, 35, 60);
+            sidebarColor = new Color(15, 45, 75);
+            textColor = new Color(180, 230, 255);
+            borderColor = new Color(80, 180, 220);
+            break;
+
+        case "Neon":
+            backgroundColor = new Color(15, 15, 25);
+            sidebarColor = new Color(25, 20, 40);
+            textColor = new Color(0, 255, 255);
+            borderColor = new Color(255, 0, 255);
+            break;
+
+        case "Light":
+            backgroundColor = new Color(235, 235, 235);
+            sidebarColor = new Color(210, 210, 210);
+            textColor = Color.BLACK;
+            borderColor = new Color(80, 80, 80);
+            break;
+
+        case "Dark":
+        default:
+            backgroundColor = Color.BLACK;
+            sidebarColor = new Color(20, 20, 20);
+            textColor = Color.WHITE;
+            borderColor = Color.DARK_GRAY;
+            break;
+    }
+
+    setBackground(backgroundColor);
+}
 
     private void initGame() {
         for (int r = 0; r < ROWS; r++)
@@ -419,7 +505,7 @@ private void removeClearedLines() {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // Draw board border
-        g2.setColor(Color.DARK_GRAY);
+        g2.setColor(borderColor);
         g2.drawRect(0, 0, COLS * TILE, ROWS * TILE);
 
         // Draw locked blocks
@@ -463,7 +549,7 @@ for (int r = 0; r < ROWS; r++) {
 
 // Sidebar
 int sx = COLS * TILE + 15;
-g2.setColor(Color.WHITE);
+g2.setColor(textColor);
 g2.setFont(new Font("Arial", Font.BOLD, 16));
 
 g2.drawString("SCORE", sx, 30);
@@ -481,12 +567,15 @@ g2.drawString(String.valueOf(level), sx, 215);
 g2.drawString("DIFFICULTY", sx, 250);
 g2.drawString(difficulty, sx, 270);
 
-g2.drawString("NEXT", sx, 310);
+g2.drawString("THEME", sx, 310);
+g2.drawString(theme, sx, 330);
+
+g2.drawString("NEXT", sx, 380);
 
 if (nextShape != null) {
     for (int[] cell : nextShape) {
         int px = sx + cell[0] * (TILE - 5);
-        int py = 320 + cell[1] * (TILE - 5);
+        int py = 410 + cell[1] * (TILE - 5);
 
         g2.setColor(nextColor);
         g2.fillRect(px, py, TILE - 6, TILE - 6);
@@ -496,17 +585,18 @@ if (nextShape != null) {
     }
 }
 
+        g2.setColor(textColor);
         g2.setFont(new Font("Arial", Font.PLAIN, 11));
-        g2.drawString("Arrows: move/rotate", sx, 450);
-        g2.drawString("Space: hard drop", sx, 470);
-        g2.drawString("P: pause", sx, 490);
-        g2.drawString("R: restart", sx, 510);
+        g2.drawString("Arrows: move/rotate", sx, 500);
+        g2.drawString("Space: hard drop", sx, 520);
+        g2.drawString("P: pause", sx, 540);
+        g2.drawString("R: restart", sx, 560);
 
         if (paused && !gameOver) {
     g2.setColor(new Color(0, 0, 0, 180));
     g2.fillRect(0, 0, COLS * TILE, ROWS * TILE);
 
-    g2.setColor(Color.WHITE);
+    g2.setColor(textColor);
     g2.setFont(new Font("Arial", Font.BOLD, 36));
     g2.drawString(
         "PAUSED",
@@ -525,10 +615,10 @@ if (nextShape != null) {
         if (gameOver) {
             g2.setColor(new Color(0, 0, 0, 180));
             g2.fillRect(0, 0, COLS * TILE, ROWS * TILE);
-            g2.setColor(Color.RED);
+            g2.setColor(textColor);
             g2.setFont(new Font("Arial", Font.BOLD, 24));
             g2.drawString("GAME OVER", COLS * TILE / 2 - 80, ROWS * TILE / 2 - 10);
-            g2.setColor(Color.WHITE);
+            g2.setColor(textColor);
             g2.setFont(new Font("Arial", Font.PLAIN, 14));
             g2.drawString("Press R to restart", COLS * TILE / 2 - 65, ROWS * TILE / 2 + 20);
         }
