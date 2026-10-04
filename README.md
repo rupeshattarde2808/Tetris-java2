@@ -86,6 +86,16 @@ collision detection, and keyboard controls.
 | R              | Restart Game     |
 
 ---
+
+##  Theme and Difficulty mode selection 
+
+
+<p align="center">
+  <img src="assets/mode.png" width="300">
+  <img src="assets/theme.png" width="300">
+</p>
+
+---
 ## Gameplay Video
 
 <img src="assets/tetris-gameplay2.gif" width="350">
