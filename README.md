@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  A classic Tetris game developed using Java Swing with smooth gameplay, keyboard controls, collision detection, and scoring system,mutiple difficulty level,sound effect,and animation.
+  A classic Tetris game developed using Java Swing with smooth gameplay, keyboard controls, collision detection, and scoring system,mutiple difficulty level,sound effect,animation and customizable visual themes.
 </p>
 
 ---
@@ -87,15 +87,68 @@ collision detection, and keyboard controls.
 
 ---
 
-##  Theme and Difficulty mode selection 
+## Difficulty Modes
 
+The game provides three difficulty levels:
+
+| Difficulty | Falling Speed |
+|------------|---------------|
+| Easy       | Slow          |
+| Medium     | Normal        |
+| Hard       | Fast          |
+
+The difficulty level affects how quickly Tetromino pieces fall.
+
+---
+
+## Difficulty selection 
 
 <p align="center">
   <img src="assets/mode.png" width="300">
+</p>
+
+---
+
+## Themes
+
+The game includes four built-in visual themes:
+
+| Theme | Description |
+|-------|-------------|
+| Dark  | Classic dark Tetris appearance |
+| Ocean | Blue-based visual theme |
+| Neon  | Bright neon-style interface |
+| Light | Light background with dark text |
+
+The theme can be selected when starting the game.
+
+---
+
+## Theme selection 
+
+<p align="center">
   <img src="assets/theme.png" width="300">
 </p>
 
 ---
+
+## Scoring System
+
+Points are awarded based on the number of lines cleared:
+
+| Lines Cleared | Base Score |
+|---------------|------------|
+| 1 Line        | 100        |
+| 2 Lines       | 300        |
+| 3 Lines       | 500        |
+| 4 Lines       | 800        |
+
+The score is multiplied by the current level.
+
+Additional points can also be earned by performing hard drops.
+
+---
+
 ## Gameplay Video
 
 <img src="assets/tetris-gameplay2.gif" width="350">
