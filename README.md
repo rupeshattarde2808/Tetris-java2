@@ -101,7 +101,7 @@ The difficulty level affects how quickly Tetromino pieces fall.
 
 ---
 
-##  Theme selection 
+## Difficulty selection 
 
 <p align="center">
   <img src="assets/mode.png" width="300">
@@ -124,7 +124,7 @@ The theme can be selected when starting the game.
 
 ---
 
-##  Theme selection 
+## Theme selection 
 
 <p align="center">
   <img src="assets/theme.png" width="300">
