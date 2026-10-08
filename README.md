@@ -59,6 +59,18 @@ collision detection, and keyboard controls.
 * Keyboard-based controls
 * Lightweight application
 
+### Tetromino System
+
+The game includes all seven standard Tetromino shapes:
+
+- I
+- O
+- T
+- S
+- Z
+- J
+- L
+
 ---
 
 ##  Tech Stack
